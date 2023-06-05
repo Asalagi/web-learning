@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mondrian Project</title>
+  <style>
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .grid-container {
+      width: 751px;
+      height: 751px;
+      display: grid;
+      grid-template-columns: 320px 198px 153px 50px;
+      grid-template-rows: 414px 130px 155px 22px;
+      background-color: black;
+      gap: 10px;
+    }
+    .red-box {
+      background-color: #E72F24;
+    }
+    .white-box-big {
+      background-color: #F0F1EC;
+      grid-column: span 3;
+    }
+    .white-box-left {
+      background-color: #F0F1EC;
+      grid-row: span 2;
+    }
+    .white-box-right {
+      background-color: #F0F1EC;
+      grid-area: 2 / 2 / 4 / 4;
+    }
+    .blue-box {
+      background-color: #004592;
+      border-bottom: 10px solid #000;
+    }
+    .white-side-tall {
+      background-color: #F0F1EC;
+    }
+    .white-bottom-long {
+      background-color: #F0F1EC;
+      grid-row: span 2;
+    }
+    .yellow-box {
+      background-color: #F9D01E;
+    }
+    .black-box {
+      background-color: #232629;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-container">
+    <div class="grid-container">
+      <div class="red-box"></div>
+      <div class="white-box-big"></div>
+      <div class="white-box-left"></div>
+      <div class="white-box-right"></div>
+
+      <div class="blue-box"></div>
+      <div class="white-bottom-long"></div>
+
+      <div class="white-side-tall"></div>
+      <div class="yellow-box"></div>
+      <div class="black-box"></div>
+    </div>
+  </div>
+</body>
+
+</html>
