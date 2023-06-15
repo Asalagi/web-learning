@@ -1,5 +1,5 @@
 function whosPaying(names) {
-    var names = ["Angela", "Ben", "Jenny", "Michael", "Chloe";
+    var names = ["Angela", "Ben", "Jenny", "Michael", "Chloe"];
     var numberOfPeople = names.length;
     var randomPersonPosition = Math.floor(Math.random() * numberOfPeople);
     var randomPerson = names[randomPersonPosition];
