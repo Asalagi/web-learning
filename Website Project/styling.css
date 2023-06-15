@@ -13,29 +13,31 @@ body {
     width: 100%;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     height: 100vh;
-    background-color: #9BA4B5;
+    background-color: #00ADB5;
     gap: 0;
 }
 .secondary-container {
-    background-color: #F1F6F9;
+    background-color: #EEEEEE;
     padding: 10px;
 }
 .heading-text {
-    color: #212A3E;
+    justify-content: center;
+    text-align: center;
+    color: #222831;
 }
 
 .bottom-footer {
-    background-color: #394867;
+    background-color: #393E46;
     width: 100%;
     height: 100px;
 }
 
 p {
-    color: #212A3E;
+    color: #222831;
 }
 
 h2 {
-    color: #212A3E;
+    color: #222831;
     font-size: 20px;
     text-align: center;
 }
@@ -44,5 +46,5 @@ h2 {
     margin: 0;
     padding: 10px;
     text-align: center;
-    color: #F1F6F9;
+    color: #00ADB5;
 }
