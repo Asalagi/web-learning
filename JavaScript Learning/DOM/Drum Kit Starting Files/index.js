@@ -6,7 +6,17 @@ for (var i = 0; i < drumDrumButtons; i++) {
         
         var buttonInnerHTML = this.innerHTML;
 
-        switch (buttonInnerHTML) {
+        makeSound(buttonInnerHTML);
+
+    });
+}
+
+document.addEventListener("keydown", function(event) {
+    makeSound(event.key);
+});
+
+function makeSound(key) {
+            switch (key) {
             case  "w":
                 var tom1 = new Audio('sounds/tom-1.mp3');
                 tom1.play();
@@ -39,17 +49,4 @@ for (var i = 0; i < drumDrumButtons; i++) {
             default: console.log(buttonInnerHTML);
 
         }
-    });
-}
-
-
-
-
-// function HouseKeeper (name, age, yearOfExperience, specialties) {
-//     this.name = name;
-//     this.age = age;
-//     this.yearOfExperience = yearOfExperience;
-//     this.specialties = specialties;
-// }
-
-// var houseKeeper1 = new HouseKeeper("Mary", 30, 10, "deep cleaning");
+    }
