@@ -1,4 +1,4 @@
 
-$(document).keypress(function(event) {
-    $("h1").text(event.key);
+$("h1").on("click", function(event) {
+    $("h1").hide();
 });
