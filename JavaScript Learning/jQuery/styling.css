@@ -1,3 +1,9 @@
 body {
-    background-color: aquamarine;
+    background-color: lightskyblue;
+}
+
+.big-title {
+    font-size: 10rem;
+    color: grey;
+    font-family: cursive;
 }
