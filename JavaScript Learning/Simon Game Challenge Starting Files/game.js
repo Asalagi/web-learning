@@ -7,6 +7,7 @@ $(".btn").click(function() {
     var userChosenColor = $(this).attr("id");
     userClickedPattern.push(userChosenColor);
     playSound(userChosenColor);
+    animatePress(userChosenColor);
 });
 
 function nextSequence() {
@@ -15,8 +16,10 @@ function nextSequence() {
     gamePattern.push(randomChosenColor);
 
   $("#" + randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100);
-    
+
   playSound(randomChosenColor);
+
+
 }
 
 function playSound(name){
@@ -24,4 +27,18 @@ function playSound(name){
     audio.play();
 }
 
-nextSequence();
+function animatePress(currentColor) {
+    $("#" + currentColor).addClass("pressed");
+
+    setTimeout(function() {
+        $("#" + currentColor).removeClass("pressed")
+    }, 100);
+}
+
+$(document).keypress(function(event) {
+    if (!gameStarted) {
+        gameStarted = true;
+        nextSequence();
+    }
+    
+})
