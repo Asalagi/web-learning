@@ -33,13 +33,15 @@ function checkAnswer(currentLevel) {
        setTimeout(nextSequence, 1000)
     } else {
         playSound("wrong");
-        
+
         $("body").addClass("game-over");
         setTimeout(function() {
             $("body").removeClass("game-over");
         }, 200);
 
         $("h1").text("Game Over, Press Any Key to Restart");   
+        
+        startOver();
     }
 }
 
@@ -64,10 +66,9 @@ $(document).keypress(function(event) {
     }
 });
 
-$("body").addClass("game-over");
-setTimeout(function() {
-    $("body").removeClass("game-over");
-}, 200);
-
-var wrong = new Audio("wrong.mp3");
-wrong.play();
+function startOver() {
+    level = 0;
+    gamePattern = [];
+    userClickedPattern = [];
+    gameStarted = false;
+}
