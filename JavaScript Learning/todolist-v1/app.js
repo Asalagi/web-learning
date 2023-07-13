@@ -11,11 +11,30 @@ app.get("/", function(req, res){
     var currentDay = today.getDay();
     var day = "";
 
-    if (currentDay === 6 || currentDay === 0){
-        day = "Weekend";
-    } else {
-        day = "Weekday";
-    
+    switch (currentDay) {
+        case 0:
+            day = "Sunnudagr";
+            break;
+        case 1:
+            day = "Manadagr";
+            break;
+        case 2:
+            day = "Tysdagr";
+             break;
+        case 3:
+            day = "Odinsdagr";
+            break;
+        case 4:
+            day = "Thorsdagr";
+            break;
+        case 5:
+            day = "Frjadagr";
+            break;
+        case 6: 
+            day = "Laugardagr";
+            break;
+            default:
+                console.log("Error today is " + currentDay);
     }
     res.render("list", {kindOfDay: day})
 });
