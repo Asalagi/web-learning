@@ -19,13 +19,13 @@ app.get("/", function(req, res){
       res.render("home", {startingContent: homeStartingContent});
 });
 
-app.get("/", function(req, res){
-  const day = date.getDate();
-  res.render("list", {listTitle: day, newListItems: items})
+app.get("/about", function(req, res){
+  res.render("about", {about: aboutContent});
 });
 
-
-
+app.get("/contact", function(req, res){
+  res.render("contact", {contact: contactContent});
+});
 
 
 
