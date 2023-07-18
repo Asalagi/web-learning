@@ -5,7 +5,7 @@
 
 <% posts.forEach(function(post){ %>
     <h2><%= post.title %></h2>
-    <p><%= post.message %></p>
+    <p><%= post.message.length <= 100 ? blogSnippet : post.message.slice(0, 100) + "..." %></p>
 <% }); %>
 
 
