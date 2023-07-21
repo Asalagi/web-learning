@@ -43,17 +43,15 @@ html {
     color: #000;
   }
 
-  button {
-    min-height: 50px;
-    width: 50px;
-    border-radius: 50%;
+  /* button {
+    border-radius: 10%;
     border-color: transparent;
     background-color: #30aab8;
     color: #fff;
     font-size: 30px;
     padding-bottom: 6px;
     border-width: 0;
-  }
+  } */
     
   #footer {
     background-color: #b0ab8f;

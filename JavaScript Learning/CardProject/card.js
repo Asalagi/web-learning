@@ -1,10 +1,13 @@
-
-const imagePre = "images/horse";
-const imageEx = ".jpeg";
 const imageNum = 10;
 
-
-function randomImage(){
-    const randomNumber = Math.floor(Math.round() * 10) + 1;
-    return `${imagePre}${randomNumber}${imageEx}`;
+function getRandomImageFilename() {
+  const randomNumber = Math.floor(Math.random() * imageNum) + 1;
+  return `images/horse` + ${randomNumber} + `.jpg`;
 }
+
+function updateRandomImage() {
+  const randomImageElement = document.getElementById("randomImage");
+  randomImageElement.src = getRandomImageFilename();
+}
+
+document.getElementById("randomizeButton").addEventListener("click", updateRandomImage);
