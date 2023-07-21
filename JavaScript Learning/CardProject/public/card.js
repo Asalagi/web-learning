@@ -2,7 +2,7 @@ const imageNum = 10;
 
 function getRandomImageFilename() {
   const randomNumber = Math.floor(Math.random() * imageNum) + 1;
-  return `images/horse` + ${randomNumber} + `.jpg`;
+  return `/images/horse${randomNumber}.jpg`;
 }
 
 function updateRandomImage() {
