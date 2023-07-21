@@ -1,14 +1,27 @@
-const insertDocuments = function(db, callback){
-    const collection = db.collections('documents');
+const insertDocuments = function(db, callback) {
+    const collection = db.collection('fruits');
 
-    collection.insertMany ([
-        {a : 1}, {a : 2}, {a : 3}
-    ], function(err, result){
+    collection.insertMany([
+        {
+            name: "Apple",
+            score: 8,
+            review: "Apple a day keeps the doctor away"
+        },
+        {
+            name: "Orange",
+            score: 1,
+            review: "Yuck"
+        },
+        {
+            name: "Banana",
+            score: 5,
+            review: "Keeps my potassium up"
+        }
+    ], function(err, result) {
         assert.equal(err, null);
-        assert.equal(3, result.result.n);
-        assert.equal(3, results.ops.legnth);
-        console.log("inserted 3 documents into the collections");
+        assert.equal(3, result.insertedCount);
+        assert.equal(3, result.ops.length);
+        console.log("Inserted 3 documents into the collection");
         callback(result);
-
     });
-}
+};
