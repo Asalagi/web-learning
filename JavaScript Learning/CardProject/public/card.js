@@ -5,6 +5,7 @@ function getRandomImageFilename() {
   return `/images/horse${randomNumber}.jpg`;
 }
 
+
 function updateRandomImage() {
   const randomImageElement = document.getElementById("randomImage");
   randomImageElement.src = getRandomImageFilename();
