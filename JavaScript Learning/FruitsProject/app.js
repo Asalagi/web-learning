@@ -53,12 +53,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/fruitsDB");
 
   // person.save();
 
-  Fruit.insertMany([kiwi, banana, strawberry], function(err){
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("many fruits were inserted");
-    }
-  });
+  Fruit.insertMany([kiwi, banana, strawberry]);
+  console.log("inserted many fruits");
   // fruit.save();
   // console.log('Inserted 1 document into the collection');
