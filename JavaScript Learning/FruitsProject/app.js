@@ -16,7 +16,11 @@ mongoose.connect("mongodb://127.0.0.1:27017/fruitsDB")
 
   const fruitSchema = new mongoose.Schema({
     name: String,
-    score: Number,
+    score: {
+      type: Number,
+      min: 1,
+      max: 10
+    },
     review: String
   });
   
@@ -26,28 +30,21 @@ mongoose.connect("mongodb://127.0.0.1:27017/fruitsDB")
     { name: 'Pear', score: 8, review: "sweet!"},
     { name: 'Kiwi', score: 1, review: 'Too fuzzy' },
     { name: 'Banana', score: 5, review: 'Good when there is nothing else to eat' },
-    { name: 'Strawberry', score: 10, review: 'So sweet and delicious' }
+    { name: 'Strawberry', score: 10, review: 'So sweet and delicious' },
+    { name: 'Peach', score: 1, review: 'meh' }
   ];
- 
-  // const personSchema = new mongoose.Schema({
-  //   name: String,
-  //   age: Number,
-  //   state: String
-  // });
-  
-  // const Person = mongoose.model('Person', personSchema);
-  // const person = new Person ({
-  //   name: "Jerry",
-  //   age: "32",
-  //   state: "Oklahoma"
-  // });
 
-  // person.save();
+  const orange = new Fruit({
+    name: "Orange",
+    score: 2,
+    review: "too sour"
+  });
 
   // Fruit.insertMany(fruits);
   // console.log("inserted many fruits");
-  // fruit.save();
-  // console.log('Inserted 1 document into the collection');
+  orange.save();
+  console.log('Inserted 1 document into the collection');
+
   async function findFruits() {
     try {
       const fruits = await Fruit.find().select('name');
