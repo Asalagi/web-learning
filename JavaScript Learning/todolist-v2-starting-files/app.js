@@ -1,5 +1,3 @@
-// jshint esversion:6
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -63,18 +61,17 @@ app.get("/", function (req, res) {
 });
 
 app.post("/", function (req, res) {
-  const item = req.body.newItem;
+  const itemName = req.body.newItem;
 
-  if (req.body.list === "Work") {
-    workItems.push(item);
-    res.redirect("/work");
-  } else {
-    items.push(item);
-    res.redirect("/");
-  }
+  const item = new Item ({
+    name: itemName
+  });
+  item.save();
+  res.redirect("/"); 
 });
 
 app.get("/work", function (req, res) {
+  const workItems = []; 
   res.render("list", { listTitle: "Work List", newListItems: workItems });
 });
 
