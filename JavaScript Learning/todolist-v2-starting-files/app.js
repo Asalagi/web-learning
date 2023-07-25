@@ -52,8 +52,16 @@ const workItems = [];
 
 app.get("/", function(req, res) {
 
-  res.render("list", {listTitle: "Today", newListItems: defaultItems});
 
+  Item.find({})
+    .then((foundItems) => {
+      console.log(foundItems);
+      res.render("list", { listTitle: "Today", newListItems: foundItems });
+    })
+    .catch(err => {
+      console.log("Error fetching items:", err);
+      res.render("list", { listTitle: "Today", newListItems: defaultItems });
+    });
 });
 
 app.post("/", function(req, res){
