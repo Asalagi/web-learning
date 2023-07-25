@@ -1,4 +1,4 @@
-//jshint esversion:6
+// jshint esversion:6
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -8,64 +8,61 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 mongoose.connect("mongodb://127.0.0.1:27017/todolistDB")
   .then(() => {
     console.log("You have connected successfully to Mongoose.");
   })
-    .catch(err => {
-      console.log("There has been an error.");
+  .catch(err => {
+    console.log("There has been an error.");
   });
 
-  const itemsSchema = {
-    name: String
-  };
+const itemsSchema = {
+  name: String
+};
 
-  const Item = mongoose.model("Item", itemsSchema);
+const Item = mongoose.model("Item", itemsSchema);
 
-  const item1 = new Item ({
-    name: "Step One: write task."
-  });
+const item1 = new Item({
+  name: "Step One: write task."
+});
 
-  const item2 = new Item ({
-    name: "Step Two: Click + to add task to the list."
-  });
+const item2 = new Item({
+  name: "Step Two: Click + to add task to the list."
+});
 
-  const item3 = new Item ({
-    name: "Step Three: Complete task and check the box."
-  });
+const item3 = new Item({
+  name: "Step Three: Complete task and check the box."
+});
 
-  const defaultItems = [item1, item2, item3];
+const defaultItems = [item1, item2, item3];
 
-  Item.insertMany(defaultItems)
-    .then (() => {
-      console.log("many items were successfully inserted");
-    })
-    .catch(err => {
-      console.log("an eror occured and nothing has been inserted");
-    });
-
-
-const workItems = [];
-
-app.get("/", function(req, res) {
-
-
+app.get("/", function (req, res) {
   Item.find({})
-    .then((foundItems) => {
-      console.log(foundItems);
-      res.render("list", { listTitle: "Today", newListItems: foundItems });
+    .then(foundItems => {
+      if (foundItems.length === 0) {
+        return Item.insertMany(defaultItems)
+          .then(() => {
+            console.log("Default items inserted successfully.");
+            return defaultItems;
+          });
+      } else {
+        console.log("Items were found");
+        console.log(foundItems);
+        return foundItems;
+      }
+    })
+    .then(items => {
+      res.render("list", { listTitle: "Today", newListItems: items });
     })
     .catch(err => {
-      console.log("Error fetching items:", err);
-      res.render("list", { listTitle: "Today", newListItems: defaultItems });
+      console.log("There is an error:", err);
     });
 });
 
-app.post("/", function(req, res){
-
+app.post("/", function (req, res) {
   const item = req.body.newItem;
 
   if (req.body.list === "Work") {
@@ -77,14 +74,14 @@ app.post("/", function(req, res){
   }
 });
 
-app.get("/work", function(req,res){
-  res.render("list", {listTitle: "Work List", newListItems: workItems});
+app.get("/work", function (req, res) {
+  res.render("list", { listTitle: "Work List", newListItems: workItems });
 });
 
-app.get("/about", function(req, res){
+app.get("/about", function (req, res) {
   res.render("about");
 });
 
-app.listen(3000, function() {
+app.listen(3000, function () {
   console.log("Server started on port 3000");
 });
