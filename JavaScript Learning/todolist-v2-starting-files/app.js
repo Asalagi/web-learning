@@ -67,6 +67,30 @@ app.get("/", function (req, res) {
     });
 });
 
+app.get("/:customList", function(req, res){
+  let customList = (req.params.customList);
+
+  List.findOne({ name: customList })
+    .then(foundList => {
+      if (foundList) {
+        console.log("List exists:", foundList.name);
+        return foundList;
+      } else {
+        const list = new List({
+          name: customList,
+          items: defaultItems
+        });
+        return list.save();
+      }
+    })
+    .then(list => {
+      res.render("list", { listTitle: list.name, newListItems: list.items });
+    })
+    .catch(err => {
+      console.log("There is an error:", err);
+    });
+});
+
 app.post("/", function (req, res) {
   const itemName = req.body.newItem;
   const listName = req.body.list;
@@ -88,43 +112,43 @@ app.post("/", function (req, res) {
   }
 });
 
-app.post("/delete", function (req, res){
+app.post("/delete", function (req, res) {
   const checkedItemId = req.body.checkbox;
+  const listName = req.body.listName;
 
-  Item.findByIdAndRemove(checkedItemId)
-  .then(() => {
-    console.log("Item has been removed.");
-  })
-  .catch(err => {
-    console.log("Item could NOT be removed.");
-  });
-  res.redirect("/");
-
-});
-
-app.get("/:customList", function(req, res){
-  const customList = (req.params.customList);
-
-  List.findOne({ name: customList })
-.then(foundList => {
-  if (foundList) {
-    console.log("List exists:", foundList.name);
-    return foundList;
+  if (listName === "Today") {
+    Item.findByIdAndRemove(checkedItemId)
+      .then(() => {
+        console.log("Successfully deleted checked item.");
+        res.redirect("/");
+      })
+      .catch(err => {
+        console.log("Error deleting checked item:", err);
+        res.redirect("/");
+      });
   } else {
-    const list = new List({
-      name: customList,
-      items: defaultItems
-    });
-    return list.save();
+    List.findOneAndUpdate(
+      { name: listName },
+      { $pull: { items: { _id: checkedItemId } } },
+      { useFindAndModify: false }
+    )
+      .then(foundList => {
+        if (foundList) {
+          console.log("Item has been removed from custom list:", foundList.name);
+          res.redirect("/" + listName);
+        } else {
+          console.log("Custom list not found.");
+          res.redirect("/");
+        }
+      })
+      .catch(err => {
+        console.log("Error removing item from custom list:", err);
+        res.redirect("/");
+      });
   }
-})
-.then(list => {
-  res.render("list", { listTitle: list.name, newListItems: list.items });
-})
-.catch(err => {
-  console.log("There is an error:", err);
 });
-});
+
+
 
 app.get("/about", function (req, res) {
   res.render("about");
