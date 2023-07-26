@@ -68,7 +68,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/:customList", function(req, res){
-  let customList = (req.params.customList);
+  const customList = (req.params.customList);
 
   List.findOne({ name: customList })
     .then(foundList => {
