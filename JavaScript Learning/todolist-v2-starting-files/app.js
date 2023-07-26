@@ -37,6 +37,13 @@ const item3 = new Item({
 
 const defaultItems = [item1, item2, item3];
 
+const listSchema = {
+  name: String,
+  items: [itemsSchema]
+};
+
+const List = mongoose.model("List", listSchema);
+
 app.get("/", function (req, res) {
   Item.find({})
     .then(foundItems => {
@@ -84,9 +91,28 @@ app.post("/delete", function (req, res){
 
 });
 
-app.get("/work", function (req, res) {
-  const workItems = []; 
-  res.render("list", { listTitle: "Work List", newListItems: workItems });
+app.get("/:customList", function(req, res){
+  const customList = (req.params.customList);
+
+  List.findOne({ name: customList })
+.then(foundList => {
+  if (foundList) {
+    console.log("List exists:", foundList.name);
+    return foundList;
+  } else {
+    const list = new List({
+      name: customList,
+      items: defaultItems
+    });
+    return list.save();
+  }
+})
+.then(list => {
+  res.render("list", { listTitle: list.name, newListItems: list.items });
+})
+.catch(err => {
+  console.log("There is an error:", err);
+});
 });
 
 app.get("/about", function (req, res) {
