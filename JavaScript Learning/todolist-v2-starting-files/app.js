@@ -48,7 +48,7 @@ app.get("/", function (req, res) {
           });
       } else {
         console.log("Items were found");
-        console.log(foundItems);
+        // console.log(foundItems);
         return foundItems;
       }
     })
@@ -68,6 +68,20 @@ app.post("/", function (req, res) {
   });
   item.save();
   res.redirect("/"); 
+});
+
+app.post("/delete", function (req, res){
+  const checkedItemId = req.body.checkbox;
+
+  Item.findByIdAndRemove(checkedItemId)
+  .then(() => {
+    console.log("Item has been removed.");
+  })
+  .catch(err => {
+    console.log("Item could NOT be removed.");
+  });
+  res.redirect("/");
+
 });
 
 app.get("/work", function (req, res) {
